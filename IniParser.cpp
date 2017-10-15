@@ -15,6 +15,7 @@ IniParser::IniParser()
 {
     cout << "Write a filename" << endl;
     cin >> filename;
+    IniParser::Parser();
 }
 
 
@@ -22,6 +23,7 @@ IniParser::IniParser(const char* filename_cstr)
 {
     filename = filename_cstr;
     IniParser::Initialize(filename_cstr);
+    IniParser::Parser();
 }
 
 IniParser::~IniParser() {}
@@ -47,7 +49,7 @@ void IniParser::Initialize(const char* filename_cstr) const throw (exc_io)
 
 void IniParser::Parser()
 {
-    IniParser::Initialize(filename.c_str());
+    //IniParser::Initialize(filename.c_str());
     ifstream conf_file;
     conf_file.open(filename);
     string line;
@@ -68,8 +70,7 @@ void IniParser::Parser()
             sections.insert (make_pair(line, Params()));
             sect = line;
         }
-//        if ((!line.empty()) && !(line == "\n") && !(line == " ") && (line[0] != '[')) {
-//        if (line.find('=') != 0) {
+
         string field, value_string;
         int pos_of_equal = -1;
         pos_of_equal = line.find("=");
@@ -87,10 +88,10 @@ void IniParser::Parser()
         }
 }
 
-bool IniParser::IsHaveSection(const char* section_name) throw (exc_cfg_not_found_section)
+bool IniParser::IsHaveSection(const char* section_name) const throw (exc_cfg_not_found_section)
 {
     try {
-        IniParser::Parser();
+        //IniParser::Parser();
         if (sections.count(section_name) > 0)
             return true;
         else
@@ -102,7 +103,7 @@ bool IniParser::IsHaveSection(const char* section_name) throw (exc_cfg_not_found
     }
 }
 
-bool IniParser::IsHaveParam(const char* section_name, const char* param_name) throw (exc_cfg_not_found_section, exc_cfg_not_found_param)
+bool IniParser::IsHaveParam(const char* section_name, const char* param_name) const throw (exc_cfg_not_found_section, exc_cfg_not_found_param)
 {
     if (IsHaveSection(section_name)) {
         try {
@@ -120,7 +121,7 @@ bool IniParser::IsHaveParam(const char* section_name, const char* param_name) th
 
 }
 
-int IniParser::GetValueInt(const char* section_name, const char* param_name) throw (exc_cfg_param_type)
+int IniParser::GetValueInt(const char* section_name, const char* param_name) const throw (exc_cfg_param_type)
 {
     if (IsHaveSection(section_name)) {
         if (IsHaveParam(section_name, param_name)) {
@@ -140,7 +141,7 @@ int IniParser::GetValueInt(const char* section_name, const char* param_name) thr
     }
 }
 
-double IniParser::GetValueDouble(const char* section_name, const char* param_name) throw (exc_cfg_param_type)
+double IniParser::GetValueDouble(const char* section_name, const char* param_name) const throw (exc_cfg_param_type)
 {
     if (IsHaveSection(section_name)) {
         if (IsHaveParam(section_name, param_name)) {
@@ -160,7 +161,7 @@ double IniParser::GetValueDouble(const char* section_name, const char* param_nam
     }
 }
 
-string IniParser::GetValueString(const char* section_name, const char* param_name) throw (exc_cfg_param_type)
+string IniParser::GetValueString(const char* section_name, const char* param_name) const throw (exc_cfg_param_type)
 {
     if (IsHaveSection(section_name)) {
         if (IsHaveParam(section_name, param_name)) {
