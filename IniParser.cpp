@@ -121,7 +121,8 @@ bool IniParser::IsHaveParam(const char* section_name, const char* param_name) co
 
 }
 
-int IniParser::GetValueInt(const char* section_name, const char* param_name) const throw (exc_cfg_param_type)
+template <>
+int IniParser::GetValue<int>(const char* section_name, const char* param_name) const throw (exc_cfg_param_type)
 {
     if (IsHaveSection(section_name)) {
         if (IsHaveParam(section_name, param_name)) {
@@ -141,7 +142,8 @@ int IniParser::GetValueInt(const char* section_name, const char* param_name) con
     }
 }
 
-double IniParser::GetValueDouble(const char* section_name, const char* param_name) const throw (exc_cfg_param_type)
+template <>
+double IniParser::GetValue<double>(const char* section_name, const char* param_name) const throw (exc_cfg_param_type)
 {
     if (IsHaveSection(section_name)) {
         if (IsHaveParam(section_name, param_name)) {
@@ -161,7 +163,8 @@ double IniParser::GetValueDouble(const char* section_name, const char* param_nam
     }
 }
 
-string IniParser::GetValueString(const char* section_name, const char* param_name) const throw (exc_cfg_param_type)
+template <>
+string IniParser::GetValue<string>(const char* section_name, const char* param_name) const throw (exc_cfg_param_type)
 {
     if (IsHaveSection(section_name)) {
         if (IsHaveParam(section_name, param_name)) {
@@ -175,6 +178,12 @@ string IniParser::GetValueString(const char* section_name, const char* param_nam
         }
     }
 }
+
+//template<>
+//int IniParser::GetValue(const char* section_name, const char* param_name) const throw (exc_cfg_param_type)
+//{
+//    return stoi(this->getStr(section_name, param_name, true, "int"));
+//}
 
 template <typename K, typename V, class C, class A>         // code for nice viewing maps from
 ostream &operator<< (ostream &os, map<K,V,C,A> const& m)    // https://ubuntuforums.org/showthread.php?t=641221

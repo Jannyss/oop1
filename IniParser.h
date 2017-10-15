@@ -27,13 +27,17 @@ public:
     bool IsHaveParam(const char* section_name, const char* param_name) const
         throw (exc_cfg_not_found_section, exc_cfg_not_found_param);
 
-    int GetValueInt(const char* section_name, const char* param_name) const
-        throw (exc_cfg_param_type);
+//    int GetValueInt(const char* section_name, const char* param_name) const
+//        throw (exc_cfg_param_type);
+//
+//    double GetValueDouble(const char* section_name, const char* param_name) const
+//        throw (exc_cfg_param_type);
+//
+//    string GetValueString(const char* section_name, const char* param_name) const
+//        throw (exc_cfg_param_type);
 
-    double GetValueDouble(const char* section_name, const char* param_name) const
-        throw (exc_cfg_param_type);
-
-    string GetValueString(const char* section_name, const char* param_name) const
+    template<typename T>
+    T GetValue(const char* section_name, const char* param_name) const
         throw (exc_cfg_param_type);
 
     void ShowFullFile();
