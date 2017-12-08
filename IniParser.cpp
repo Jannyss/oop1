@@ -15,7 +15,7 @@ IniParser::IniParser()
 {
     cout << "Write a filename" << endl;
     cin >> filename;
-    IniParser::Parser(filename);
+    IniParser::Parser();
 }
 
 
